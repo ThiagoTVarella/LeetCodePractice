@@ -21,3 +21,26 @@ class Solution:
             end -= 1
 
         return True
+
+def check_palindrome(s: str) -> bool:
+    return s == s[::-1]
+
+def valid_palindrome(s: str) -> bool:
+    beg_pointer = 0
+    end_pointer = len(s)-1
+
+    if check_palindrome(s):
+        return True
+    while beg_pointer < end_pointer:
+        if s[beg_pointer] == s[end_pointer]:
+            beg_pointer += 1
+            end_pointer -= 1
+        else:
+            string1 = s[beg_pointer:end_pointer]
+            string2 = s[beg_pointer+1:end_pointer+1]
+            if check_palindrome(string1) or check_palindrome(string2):
+                return True
+            else:
+                return False
+
+print(valid_palindrome('geeeeeea'))

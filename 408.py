@@ -1,34 +1,44 @@
-def validWordAbbreviation(word: str, abbr: str) -> bool:
-    # Consider two pointers, one for each string
-    i, j = 0, 0
+def valid_abbr(word: str, abbr: str) -> bool:
+    # Define two pointers
+    word_pointer = 0
+    abbr_pointer = 0
 
-    # We will move the two pointers together and compare the characters
+    # Run through pointers
+    while word_pointer < len(word):
+        # Read relevant characters
+        word_ch = word[word_pointer]
+        abbr_ch = abbr[abbr_pointer]
 
-    # When the pointer for abbr hits a number, we keep going only with j to figure out what the number is
-    # and then we check if the character of abbr after corresponts to word after that number
+        # Check if characters are equal
+        if word_ch == abbr_ch:
+            word_pointer += 1
+            abbr_pointer += 1
 
-    while i < len(word) and j < len(abbr):
-        if abbr[j].isalpha():
-            if abbr[j] != word[i]:
-                return False
-            i += 1
-            j += 1
         else:
-            num = ''
-            if abbr[j] == '0':
+            # If not number, end
+            if not abbr_ch.isdigit():
                 return False
-            while j < len(abbr):
-                if abbr[j].isdigit():
-                    num += abbr[j]
-                    j += 1
+
+            # Read number from string
+            number = ''
+            while abbr_ch.isdigit():
+                number += abbr_ch
+                abbr_pointer += 1
+                # Read new character from abbreviation, otherwise break
+                if abbr_pointer < len(abbr):
+                    abbr_ch = abbr[abbr_pointer]
                 else:
                     break
-
-            # print(num)
-            i += int(num)
-            # print(i,j)
-            if i >= len(word):
+            # If number started with 0
+            if number[0] == '0':
                 return False
-        # print(i,j)
+            # Add number to word pointer
+            else:
+                number = int(number)
+                word_pointer += number
+    if word_pointer > len(word):
+        return False
 
     return True
+
+print(valid_abbr('apple','a2e'))

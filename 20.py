@@ -1,66 +1,25 @@
-class Solution:
-    def isValid(self, s: str) -> bool:
-        # Create counters:
-        br_1 = 0 # for ()s
-        br_2 = 0 # for []s
-        br_3 = 0 # for {}s
+def valid_parentheses(s: str) -> bool:
+    # Create stack using list
+    bracket_dict = {'(':')','[':']','{':'}'}
 
-        stack = []
-
-        for char in s:
-            if char in '([{':
-                stack.append(char)
-            
-            if not stack:
-                return False
-
-            if char == ')':
-                open_br = stack.pop()
-                if open_br == '(':
-                    pass
-                else:
-                    return False
-
-            if char == ']':
-                open_br = stack.pop()
-                if open_br == '[':
-                    pass
-                else:
-                    return False
-
-            if char == '}':
-                open_br = stack.pop()
-                if open_br == '{':
-                    pass
-                else:
-                    return False
-
-        if not stack:
-            return True
-        else:
+    stack = []
+    
+    # Iterate through s
+    for char in s:
+        
+        # Check if opening brackets
+        if char in '([{':
+            stack.append(char)
+        elif not stack:
             return False
+        else:
+            opening = stack.pop()
+            if bracket_dict[opening] != char:
+                return False
+    
+    if not stack:
+        return True
+    else:
+        return False
 
-        # for char in s:
-        #     if char == '(':
-        #         br_1 += 1
-        #     elif char == ')':
-        #         br_1 -= 1
-        #     elif char == '[':
-        #         br_2 += 1
-        #     elif char == ']':
-        #         br_2 -= 1
-        #     elif char == '{':
-        #         br_3 += 1
-        #     elif char == '}':
-        #         br_3 -= 1
-        #     else:
-        #         return False
-
-        #     if br_1 < 0 or br_2 < 0 or br_3 < 0:
-        #         return False
-
-        # if br_1 > 0 or br_2 > 0 or br_3 > 0:
-        #     return False
-        # else:
-        #     return True    
-
+print(valid_parentheses('()[]{}'))
