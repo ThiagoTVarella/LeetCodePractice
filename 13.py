@@ -3,24 +3,33 @@ class Solution:
         roman_dict = {'I':1,'V':5,'X':10,'L':50,'C':100,'D':500,'M':1000}
         exceptions = {'IV':4,'IX':9,'XL':40,'XC':90,'CD':400,'CM':900}
 
+        # Starting with the final value
         value = 0
-        prev_val = roman_dict[s[0]]
 
-        except_flag = False
+        prev_char = s[0]
+        i_char = 1
         
-        for character_i in range(1,len(s)):
-            curr_val = roman_dict[s[character_i]]
-            if curr_val <= prev_val or except_flag:
-                value += prev_val
-                prev_val = curr_val
-                except_flag = False
+        while i_char < len(s):
+            char = s[i_char]
+            prev_value = roman_dict[prev_char]
+            curr_value = roman_dict[char]
+
+            # If not first and is exception:
+            if prev_value < curr_value:
+                curr_pair = prev_char + char
+                value += exceptions[curr_pair]
+                i_char += 1
+                if i_char < len(s):
+                    prev_char = s[i_char]
+
+            # If not first and is normal:
             else:
-                numeral = s[character_i-1]+s[character_i]
-                value += exceptions[numeral]
-                prev_val = 0
-                except_flag = True
-            print(value)
-        if prev_val != 0:
-            value += roman_dict[s[len(s)-1]]
+                value += roman_dict[prev_char]
+                prev_char = char
+
+            i_char += 1
+
+        if i_char == len(s):
+            value += roman_dict[s[-1]]
 
         return value
