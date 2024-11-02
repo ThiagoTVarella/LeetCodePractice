@@ -33,3 +33,25 @@ class Solution:
             value += roman_dict[s[-1]]
 
         return value
+
+class Solution:
+#     def romanToInt(self, s: str) -> int:
+#         dictio = {'I':1,"V":5,"X":10,"L":50,"C":100,"D":500,"M":1000}
+#         exceptions = {"IV":4,"IX":9,"XL":40,"XC":90,"CD":400,"CM":900}
+
+#         value = 0
+#         i = 0
+#         while i < len(s)-1:
+#             elem = s[i]
+#             next = s[i+1]
+#             if dictio[elem] >= dictio[next]:
+#                 value += dictio[elem]
+#             else:
+#                 value += exceptions[elem+next]
+#                 i+=1
+#             i+=1
+        
+#         if i < len(s):
+#             value += dictio[s[i]]
+        
+#         return value

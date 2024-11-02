@@ -1,92 +1,54 @@
 class Solution:
     def merge(self, intervals: List[List[int]]) -> List[List[int]]:
-        new_intervals = []
-        intervals = sorted(intervals)
-        pointer_left = 0
-        n = len(intervals)
 
-        # Iterate left pointer full
-        while pointer_left < n:
-            # Iterate right pointer until can't merge
-            flag_continue = True
-            pointer_right = pointer_left + 1
-            aux_interval = intervals[pointer_left]
-            while pointer_right < len(intervals) and flag_continue:
-                
-                interval2 = intervals[pointer_right]
-                if interval2[0] <= aux_interval[1]:
-                    # Merge
-                    if interval2[1] > aux_interval[1]:
-                        aux_interval[1] = interval2[1]
+        if not intervals:
+            return []
 
-                    pointer_right += 1
-                else:
-                    flag_continue = False
-            pointer_left = pointer_right
-            new_intervals.append(aux_interval)
-        
-        return new_intervals
+        intervals.sort()
 
-        # # Handle edge cases:
-        # if not intervals:
-        #     return []
+        merged = [intervals[0]]
 
-        # # Sort the list 
-        # intervals.sort()
+        for start,end in intervals[1:]:
+            if start <= merged[-1][1]:
+                merged[-1][1] = max(merged[-1][1], end)
+            else:
+                merged.append([start,end])
 
-        # # Define final list
-        # merged = [intervals[0]]
+        return merged
 
-        # # Iterate over elements
-        # i = 1
-        # while i < n:
+    # def check_overlap(self,a,b):
+    #     # check if intervals a and b overlap, with a and b sorted
+    #     if a[1] >= b[0]:
+    #         return True
+    #     else:
+    #         return False
 
-        #     # Read the last 
-        #     aux = merged[-1]
-        #     current = intervals[i]
+    # def merge_overlap(self,a,b):
+    #     # merge overlapping intervals
+    #     return [a[0],max([a[1],b[1]])]
 
-        #     # Compare with the next
-        #     if current[0] < aux[1]:
+    # def merge(self, intervals: List[List[int]]) -> List[List[int]]:
+    #     sorted_intervals = sorted(intervals)
+    #     merged = []
 
-        #         # Merge
-        #         aux[1] = max(current[1],aux[1])
+    #     pointer = 0
+    #     while pointer < len(intervals)-1:
+    #         curr_int = sorted_intervals[pointer]
+    #         next_int = sorted_intervals[pointer+1]
+    #         while self.check_overlap(curr_int, next_int):
+    #             curr_int = self.merge_overlap(curr_int, next_int)
+    #             pointer += 1
+    #             if pointer < len(intervals)-1:
+    #                 next_int = sorted_intervals[pointer+1]
+    #             else:
+    #                 break
+    #         merged.append(curr_int)
+    #         pointer += 1
 
+    #     if pointer < len(intervals):
+    #         curr_int = sorted_intervals[pointer]
+    #         merged.append(curr_int)
 
+    #     return merged
 
-        #     else:
-
-        #     i += 1
-
-
-
-
-# Elie:
-# class Solution:
-#     def merge(self, intervals: List[List[int]]) -> List[List[int]]:
-        
-#         # sort by start idx
-#         intervals = sorted(intervals)
-#         out = []
-#         # compare start idx
-#         for curr in intervals:
-#             if not out:
-#                 out.append(curr)
-#                 continue
-#             prev = out.pop()
-#             # start 1 > end 0: doesnt overlap!
-#             if curr[0] > prev[1]:
-#                 out.append(prev)
-#                 out.append(curr)
-#                 continue
-#                 # dont overlap -> stage previous interval for output, move on to this one
-#             # if start 1 >= start 0: overlaps!
-#             if curr[0] >= prev[0]:
-#                 end = max(curr[1], prev[1])
-#                 out.append([prev[0], end])
-#                 continue
-#             # start 1 == end 0: endpoints match
-#             if curr[0] == prev[1]:
-#                 out.append([prev[0], curr[1]])
-#                 continue
-
-#         return out
+    
