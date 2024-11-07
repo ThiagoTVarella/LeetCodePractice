@@ -38,3 +38,35 @@ class Solution:
         # return string from list of chars
         return ''.join(list_of_chars)
 
+class Solution:
+#     def minRemoveToMakeValid(self, s: str) -> str:
+
+#         keeps = []
+#         stack_pos = []
+
+#         for i,char in enumerate(s):
+#             if char.isalnum():
+#                 keeps.append(1)
+#             elif char == '(':
+#                 stack_pos.append(i)
+#                 keeps.append(-1)
+#             elif char == ')':
+#                 if stack_pos:
+#                     ind = stack_pos.pop()
+#                     keeps[ind] = 1
+#                     keeps.append(1)
+#                 else:
+#                     keeps.append(0)
+        
+#         while stack_pos:
+#             ind = stack_pos.pop()
+#             keeps[ind] = 0
+        
+#         ans = ''
+#         for i,keep in enumerate(keeps):
+#             if keep:
+#                 ans += s[i]
+        
+#         return ans
+
+
