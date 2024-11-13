@@ -1,9 +1,4 @@
 class Solution:
-    def Node(self,key):
-        self.key = key
-        self.next = None
-
-
     def lengthOfLongestSubstring(self, s: str) -> int:
         
         # Define hash map
@@ -39,3 +34,23 @@ class Solution:
 
         # Return
         return max_seq
+
+
+
+class Solution:
+    def lengthOfLongestSubstring(self, s: str) -> int:
+        hasht = {}
+        left = 0
+        right = 0
+        k = 0
+
+        while right < len(s):
+            while s[right] in hasht:
+                del hasht[s[left]]
+                left += 1
+
+            hasht[s[right]] = 1
+            k = max(k,len(hasht))
+            right += 1
+        
+        return k
