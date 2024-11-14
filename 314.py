@@ -45,3 +45,51 @@ class Solution:
 Sol = Solution()
 root = [1,2,3,4,10,9,11,None,5,None,None,None,None,None,None,None,None,None,6]
 print(Sol.verticalOrder(root))
+
+
+
+
+
+from collections import deque
+
+left = lambda x: 2*x + 1
+right = lambda x: 2*x + 2
+
+def verticalOrder(root):
+    pos = 0
+    count = {}
+    i = 0
+
+    qu = deque()
+    qu.append((0,pos))
+
+    minp = 0
+    maxp = 0
+
+    countiii = 0
+
+    while qu:
+        node,pos = qu.popleft()
+        if pos in count: 
+            count[pos].append(root[node])
+        else: 
+            count[pos] = [root[node]]
+        minp = min(minp,pos)
+        maxp = max(maxp,pos)
+        if left(node) < len(root) and root[left(node)] is not None:
+            qu.append((left(node),pos-1))
+        if right(node) < len(root) and root[right(node)] is not None:
+            qu.append((right(node),pos+1))
+
+    output = []
+
+    for pos in range(minp,maxp+1):
+        output.append(count[pos])
+
+    return output
+
+null = None
+root = [3,9,20,null,null,15,7]
+root = [3,9,8,4,0,1,7]
+
+print(verticalOrder(root))
