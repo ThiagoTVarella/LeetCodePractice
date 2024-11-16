@@ -60,17 +60,13 @@ class Solution:
         Space: O(N)
         N is the size of s
         """
-        
-        sl = ''
-        for ch in s:
-            if ch.isalnum():
-                sl += ch.lower()
+
+        sl = ''.join(ch.lower() for ch in s if ch.isalnum())
 
         return sl == sl[::-1]
 
-        # joint = ''
-        # for elem in s:
-        #     if elem.isalnum():
-        #         joint += elem.lower()
-            
-        # return joint == joint[::-1]
+        # sl = ''
+        # for ch in s:
+        #     if ch.isalnum():
+        #         sl += ch.lower()
+

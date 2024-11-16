@@ -51,4 +51,60 @@ class Solution:
 
     #     return merged
 
+
+
+################### Variant
+
+def check_overlap(i1,i2):
+    if i1[0] < i2[0]:
+        return i1[1] >= i2[0]
+    else:
+        return i2[1] >= i1[0]
+
+def merge(i1,i2):
+    return [min(i1[0],i2[0]),max(i1[1],i2[1])]
+
+def func(a,b):
+
+    if not a: return b
+    if not b: return a
+
+    a = sorted(a)
+    b = sorted(b)
+
+    ia = 0
+    ib = 0
+
+    curr = None
+    merged = []
+
+    while ia < len(a) and ib < len(b):
+        i1 = a[ia]
+        i2 = b[ib]
+
+        if i1[0] < i2[0]:
+            interval = i1
+            ia += 1
+        else:
+            interval = i2
+            ib += 1
+
+        if not merged: merged.append(interval)
+        elif check_overlap(merged[-1],interval): merged[-1] = merge(merged[-1],interval)
+        else: 
+            merged.append(interval)
+
+    remaining = a[ia:] + b[ib:]
+    for interval in remaining:
+        if check_overlap(merged[-1],interval):
+            merged[-1] = merge(merged[-1],interval)
+        else:
+            merged.append(interval)
+
+    return merged
+
+a = [[1,5], [10,14], [16,18]]
+b = [[2,6], [8,10], [11,20]]
+print(func(a,b))
+
     

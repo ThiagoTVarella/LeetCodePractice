@@ -52,3 +52,31 @@ class Solution:
                 buy = sell
 
         return profit
+
+
+
+
+
+
+def func(dep,ret):
+    pt_dep = 0
+
+    min_temp = ret[-1]
+    for pt_ret in range(len(ret)-1,-1,-1):
+        min_temp = min(ret[pt_ret],min_temp)
+        ret[pt_ret] = min_temp 
+    
+    min_price = dep[0]+ret[-1]
+    for pt_dep in range(len(dep)):
+        if pt_dep < len(ret)-1:
+            min_price = min(min_price,dep[pt_dep]+ret[pt_dep+1])
+
+    return min_price
+
+dep = [1,2,3,4]
+ret = [4,3,2,1]
+
+print(func(dep,ret))
+
+
+
