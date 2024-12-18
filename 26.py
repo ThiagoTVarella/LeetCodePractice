@@ -1,25 +1,56 @@
+# 1 1 1 1 1 2 2 2 3 4
+
 class Solution:
     def removeDuplicates(self, nums: List[int]) -> int:
-        
-        rep = 0
-        for i,elem in enumerate(nums[:-1]):
-            if elem == nums[i+1]:
-                nums[i] = None
-                rep += 1
-        k = len(nums) - rep
-        
-        pointer_end = 0
-        pointer_curr = 0
-        
-        while pointer_end < len(nums):
-            while nums[pointer_end] == None:
-                pointer_end += 1
-            nums[pointer_curr] = nums[pointer_end]
-            pointer_curr += 1
-            pointer_end += 1
-        
+        last = 0
+
+        lo = elem_index = 0
+        k = 0
+
+        while elem_index < len(nums):
+            k += 1
+
+            hi = len(nums)
+            while lo < hi:
+                
+                mid = lo + (hi-lo)//2
+
+                if nums[mid]>nums[elem_index]:
+                    hi = mid
+                else:
+                    lo = mid+1
+            
+            nums[last] = nums[elem_index]
+            last += 1
+            elem_index = lo
+
         return k
- 
+        
+
+
+        # # remember last element seen
+        # last = nums[0]
+        # # have stack of empty indeces
+        # qu = deque()
+        # # have counter of repeated elements
+        # rep = 0
+        # # iterate through 
+        # i = 1
+        # while i < len(nums):
+        #     elem = nums[i]
+        #     if elem == last: 
+        #         rep += 1
+        #         qu.append(i)
+        #     else:
+        #         last = elem
+        #         if qu:
+        #             pos = qu.popleft()
+        #             nums[pos] = last
+        #             qu.append(i)
+
+        #     i += 1 # 2
+
+        # return len(nums)-rep
 
 
 
