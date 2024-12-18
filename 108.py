@@ -20,6 +20,7 @@ class Solution:
 
         # queue 
         queue = deque([(median_index,beg,top,root)])
+
         # divide in 2 sublists, and take new medians
         while queue:
             (median_index,beg,top,node) = queue.popleft()
