@@ -1,3 +1,84 @@
+
+class Node():
+    def __init__(self,key,value):
+        self.key = key
+        self.value = value
+        self.left = None 
+        self.right = None
+
+class LRUCache:
+    def __init__(self,cap):
+        self.cap = cap
+        self.leftmost = Node(0,0)
+        self.rightmost = Node(0,0)
+        self.leftmost.right = self.rightmost
+        self.rightmost.left = self.leftmost
+        self.n = 0
+        self.node_dict = {}
+
+    def remove(self,node):
+        node.left.right = node.right
+        node.right.left = node.left
+
+    def append(self,node):
+        node.left = self.rightmost.left
+        node.right = self.rightmost
+        self.rightmost.left.right = node 
+        self.rightmost.left = node
+
+    def get(self, key):
+        # check if in dictionary. if it is, remove node from list, append to end, and return value
+        if key in self.node_dict:
+            self.remove(self.node_dict[key])
+            self.append(self.node_dict[key])
+            return self.node_dict[key].value
+        else:
+            return -1
+    
+    def put(self, key, value):
+        # Check if in dictionary. if is, remove node from list, append to end, change value of node
+        if key in self.node_dict:
+            self.remove(self.node_dict[key])
+            self.append(self.node_dict[key])
+            self.node_dict[key].value = value
+        else:
+            new_node = Node(key,value)
+            self.node_dict[key] = new_node
+            self.append(self.node_dict[key])
+            self.n += 1
+            if self.n > self.cap:
+                old_node = self.leftmost.right
+                del self.node_dict[old_node.key]
+                self.remove(old_node)
+                self.n -= 1
+
+                # self.leftmost.right = old_node.right
+                # old_node.right.left = self.leftmost
+        # If not, create node, and append to the right
+
+        # check cap
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # # Define node
 # class Node():
 #     def __init__(self, key: int, value: int):
